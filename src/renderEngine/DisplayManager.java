@@ -27,7 +27,7 @@ public class DisplayManager
 		{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HIGHT));
 			Display.create(new PixelFormat(), attribs);
-			Display.setTitle("Game");
+			Display.setTitle("Spiel");
 		} 
 		catch (LWJGLException e) 
 		{

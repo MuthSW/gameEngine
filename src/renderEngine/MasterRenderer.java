@@ -32,8 +32,9 @@ public class MasterRenderer
 	private StaticShader shader = new StaticShader();
 	private EntityRenderer renderer;
 	
-	private TerrainRenderer terrainRenderer;
+
 	private TerrainShader terrainShader = new TerrainShader();
+	private TerrainRenderer terrainRenderer;
 	
 	private Map<TexturedModel, List<Entity>> entities = new HashMap<TexturedModel, List<Entity>>();
 	private List<Terrain> terrains = new ArrayList<Terrain>();
@@ -57,19 +58,18 @@ public class MasterRenderer
 		GL11.glDisable(GL11.GL_CULL_FACE);
 	}
 	
-	public void render(Light sun, Camera camera)
+	public void render(List<Light> lights, Camera camera)
 	{
 		prepare();
 		shader.start();
 		shader.loadSkyColor(RED, GREEN, BLUE);
-		shader.loadLight(sun);
+		shader.loadLights(lights);
 		shader.loadViewMatrix(camera);
 		renderer.render(entities);
 		shader.stop();
-		
 		terrainShader.start();
 		terrainShader.loadSkyColor(RED, GREEN, BLUE);
-		terrainShader.loadLight(sun);
+		terrainShader.loadLights(lights);
 		terrainShader.loadViewMatrix(camera);
 		terrainRenderer.render(terrains);
 		terrainShader.stop();
